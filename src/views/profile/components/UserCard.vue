@@ -73,8 +73,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { IProfile } from '../index.vue'
 import PanThumb from '@/components/PanThumb/index.vue'
+import { IProfile } from '@/api/types'
 
 @Component({
   name: 'UserCard',

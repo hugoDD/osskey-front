@@ -50,3 +50,126 @@ export interface IAppData {
   inducer: string
   icon: string
 }
+
+export interface IProfile {
+  name: string
+  email: string
+  mobile: string
+  avatar: string
+  introduction: string
+  roles: string
+  oldPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
+export interface IUserInfo {
+  username: string
+  userType: string
+  windowsAccount: string
+  displayName: string
+  nickName: string
+  nameZHSpell: string
+  nameZHShortSpell: string
+  givenName: string
+  middleName: string
+  familyName: string
+  honorificPrefix: string
+  honorificSuffix: string
+  formattedName: string
+  married: bigint
+  gender: bigint
+  birthDate: string
+  picture: string
+  idType: bigint
+  idCardNo: string
+  webSite: string
+  startWorkDate: string
+  authnType: bigint
+  email: string
+  mobile: string
+  mobileVerified: bigint
+  lastLoginTime: string
+  lastLoginIp: string
+  lastLogoffTime: string
+  passwordSetType: bigint
+  password: string
+  loginCount: bigint
+  locale: string
+  timeZone: string
+  preferredLanguage: string
+  workCountry: string
+  workRegion: string// provinc
+  workLocality: string// city: string
+  workStreetAddress: string
+  workAddressFormatted: string
+  workEmail: string
+  workPhoneNumber: string
+  workPostalCode: string
+  workFax: string
+  homeCountry: string
+  homeRegion: string// provinc
+  homeLocality: string// city: string
+  homeStreetAddress: string
+  homeAddressFormatted: string
+  homeEmail: string
+  homePhoneNumber: string
+  homePostalCode: string
+  homeFax: string
+  employeeNumber: string
+  costCenter: string
+  organization: string
+  division: string
+  departmentId: string
+  department: string
+  jobTitle: string
+  jobLevel: string
+  managerId: string
+  manager: string
+  assistantId: string
+  assistant: string
+  entryDate: string
+  quitDate: string
+  ims: string
+  extraAttribute: string
+  online: bigint
+}
+
+/*
+ *
+ */
+export interface IHistoryLogin {
+  id: string
+  sessionId: string
+  uid: string
+  username: string
+  displayName: string
+  loginType: string
+  message: string
+  code: string
+  provider: string
+  sourceIp: string
+  browser: string
+  platform: string
+  application: string
+  loginUrl: string
+  loginTime: string
+  logoutTime: string
+  startDate: string
+  endDate: string
+}
+
+interface IPageParam {
+  //过滤条件
+  rsqlFilter: string
+  /*
+   * 每页显示条数，默认 10
+   */
+  pageSize: number
+  /*
+   * 当前页
+   */
+  pageNumber: number
+  sortField: string
+  sortOrder: string
+}
