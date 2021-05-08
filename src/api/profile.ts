@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import {IPageParam, IProfile} from "@/api/types";
+import { IPageParam, IProfile } from '@/api/types'
 
 export const getMyProfile = () =>
   request({

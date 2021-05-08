@@ -160,7 +160,7 @@ export interface IHistoryLogin {
 }
 
 interface IPageParam {
-  //过滤条件
+  // 过滤条件
   rsqlFilter: string
   /*
    * 每页显示条数，默认 10

@@ -99,7 +99,7 @@ export default class extends Vue {
       if (valid) {
         this.loading = true
 
-        const { data } = await changePasswod({
+        await changePasswod({
           oldPassword: this.user.oldPassword,
           newPassword: this.user.newPassword,
           confirmPassword: this.user.confirmPassword

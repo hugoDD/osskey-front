@@ -21,5 +21,5 @@ export const removeToken = () => Cookies.remove(tokenKey)
 
 // session
 const sessionKey = 'JSESSIONID'
-export const setSession = (sessionId: string) => Cookies.set(sessionKey,sessionId)
+export const setSession = (sessionId: string) => Cookies.set(sessionKey, sessionId)
 export const getSessionId = () => Cookies.get(sessionKey)

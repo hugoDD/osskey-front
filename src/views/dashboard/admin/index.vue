@@ -115,7 +115,7 @@ export default class extends Vue {
   // private lineChartData = lineChartData.newVisitis
   //
   private handleSetLineChartData(type: string) {
-    //this.lineChartData = lineChartData[type]
+    // this.lineChartData = lineChartData[type]
   }
 }
 </script>

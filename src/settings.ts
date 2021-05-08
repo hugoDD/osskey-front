@@ -1,6 +1,6 @@
 interface ISettings {
   title: string // Overrides the default title
-  baseUrl: any //process.env.VUE_APP_BASE_API
+  baseUrl: any // process.env.VUE_APP_BASE_API
   showSettings: boolean // Controls settings panel display
   showTagsView: boolean // Controls tagsview display
   showSidebarLogo: boolean // Controls siderbar logo display

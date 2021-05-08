@@ -183,7 +183,7 @@ export const asyncRoutes: RouteConfig[] = [
       }
     ]
   },
- /* {
+  /* {
     path: '/icon',
     component: Layout,
     children: [
@@ -198,7 +198,7 @@ export const asyncRoutes: RouteConfig[] = [
         }
       }
     ]
-  },*/
+  }, */
   /** when your routing map is too long, you can split it into small modules **/
   // componentsRouter,
   // chartsRouter,
@@ -243,8 +243,8 @@ export const asyncRoutes: RouteConfig[] = [
         }
       }
     ]
-  },
- /* {
+  }
+  /* {
     path: '/tab',
     component: Layout,
     children: [
@@ -303,7 +303,7 @@ export const asyncRoutes: RouteConfig[] = [
         }
       }
     ]
-  },*/
+  }, */
   // {
   //   path: '/excel',
   //   component: Layout,
@@ -410,7 +410,7 @@ export const asyncRoutes: RouteConfig[] = [
   //     }
   //   ]
   // },
- /* {
+  /* {
     path: '/i18n',
     component: Layout,
     children: [
@@ -436,7 +436,7 @@ export const asyncRoutes: RouteConfig[] = [
     path: '*',
     redirect: '/404',
     meta: { hidden: true }
-  }*/
+  } */
 ]
 
 const createRouter = () => new VueRouter({
