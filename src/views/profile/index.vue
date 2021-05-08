@@ -84,7 +84,7 @@ const defaultProfile: IProfile = {
 export default class extends Vue {
   private userInfo: IUserInfo | undefined
   private user = defaultProfile
-  private activeTab = 'Account'
+  private activeTab = 'timeline'
 
   get name() {
     return UserModule.name
