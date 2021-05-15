@@ -159,6 +159,34 @@ export interface IHistoryLogin {
   endDate: string
 }
 
+
+export interface IAccessLogin {
+  id: string
+  sessionId: string
+  appId: string
+  appName: string
+  uid: string
+  username: string
+  displayName: string
+  loginTime: string
+}
+
+export interface IHistoryLogs {
+  id: string
+  serviceName: string
+  message: string
+  content: string
+  messageType: string
+  operateType: string
+  username: string
+  code: string
+  createdBy: string
+  createdDate: string
+  modifiedBy: string
+  modifiedDate: string
+
+}
+
 interface IPageParam {
   // 过滤条件
   rsqlFilter: string
@@ -170,6 +198,6 @@ interface IPageParam {
    * 当前页
    */
   pageNumber: number
-  sortField: string
-  sortOrder: string
+  // sortField: string
+  // sortOrder: string
 }

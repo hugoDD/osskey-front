@@ -28,6 +28,10 @@ export default {
     lineChart: '折线图',
     mixedChart: '混合图表',
     example: '综合实例',
+    safelogs: '安全审计',
+    loginLog: '登录日志',
+    accessLog: '访问日志',
+    operatingLog: '操作日志',
     nested: '路由嵌套',
     menu1: '菜单 1',
     'menu1-1': '菜单 1-1',
@@ -289,6 +293,44 @@ export default {
     authnType8: 'RSA令牌',
     authnType9: '数字证书',
     authnType10: 'USB Key'
+  },
+  log: {
+    loginhistory: {
+      id: '编号',
+      sessionId: '会话',
+      username: '登录名',
+      displayName: '用户名称',
+      provider: '提供商',
+      message: '状态',
+      loginType: '登录方式',
+      sourceIp: '访问地址',
+      browser: '浏览器',
+      loginTime: '登录时间',
+      logoutTime: '退出时间',
+      platform: '平台',
+      application: '应用',
+      loginUrl: '登录地址',
+      code: '代码',
+      rpUserInfo: '第三方'
+    },
+    loginappshistory: {
+      id: '编号',
+      sessionId: '会话',
+      uid: '用户编号',
+      username: '登录名',
+      displayName: '用户名',
+      appId: '应用编号',
+      appName: '应用名称',
+      loginTime: '登录时间'
+    },
+    operate: {
+      servicename: '服务',
+      message: '消息',
+      content: '内容',
+      messageType: '消息类型',
+      operateType: '操作类型',
+      username: '操作人'
+    }
   },
   settings: {
     title: '系统布局配置',
