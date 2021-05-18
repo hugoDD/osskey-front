@@ -155,10 +155,7 @@ export interface IHistoryLogin {
   loginUrl: string
   loginTime: string
   logoutTime: string
-  startDate: string
-  endDate: string
 }
-
 
 export interface IAccessLogin {
   id: string
@@ -200,4 +197,17 @@ interface IPageParam {
   pageNumber: number
   // sortField: string
   // sortOrder: string
+
+  eq(name: string, value: any): IPageParam
+  ne(name: string, value: any): IPageParam
+  gt(name: string, value: any): IPageParam
+  lt(name: string, value: any): IPageParam
+  gte(name: string, value: any): IPageParam
+  lte(name: string, value: any): IPageParam
+  in(name: string, value: any): IPageParam
+  notIn(name: string, value: any): IPageParam
+  ex(name: string, value: any): IPageParam
+  re(name: string, value: any): IPageParam
+  and(): IPageParam
+  or(): IPageParam
 }

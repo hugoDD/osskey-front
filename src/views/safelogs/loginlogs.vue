@@ -1,5 +1,23 @@
 <template>
   <div class="app-container">
+    <div class="filter-container">
+      <el-input
+        v-model="searchModel.sourceIp"
+        :placeholder="$t('table.title')"
+        style="width: 200px;"
+        class="filter-item"
+        @keyup.enter.native="handleFilter"
+      />
+      <el-button
+        v-waves
+        class="filter-item"
+        type="primary"
+        icon="el-icon-search"
+        @click="handleFilter"
+      >
+        {{ $t('table.search') }}
+      </el-button>
+    </div>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -147,83 +165,6 @@
         </template>
       </el-table-column>
 
-<!--      <el-table-column-->
-<!--        width="180px"-->
-<!--        align="center"-->
-<!--        label="Date"-->
-<!--      >-->
-<!--        <template slot-scope="{row}">-->
-<!--          <span>{{ row.timestamp | parseTime }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-
-<!--      <el-table-column-->
-<!--        width="180px"-->
-<!--        align="center"-->
-<!--        label="Author"-->
-<!--      >-->
-<!--        <template slot-scope="{row}">-->
-<!--          <span>{{ row.author }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-
-<!--      <el-table-column-->
-<!--        width="105px"-->
-<!--        label="Importance"-->
-<!--      >-->
-<!--        <template slot-scope="{row}">-->
-<!--          <svg-icon-->
-<!--            v-for="n in +row.importance"-->
-<!--            :key="n"-->
-<!--            name="star"-->
-<!--            class="meta-item__icon"-->
-<!--          />-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-
-<!--      <el-table-column-->
-<!--        class-name="status-col"-->
-<!--        label="Status"-->
-<!--        width="110"-->
-<!--      >-->
-<!--        <template slot-scope="{row}">-->
-<!--          <el-tag :type="row.status | articleStatusFilter">-->
-<!--            {{ row.status }}-->
-<!--          </el-tag>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-
-<!--      <el-table-column-->
-<!--        min-width="300px"-->
-<!--        label="Title"-->
-<!--      >-->
-<!--        <template slot-scope="{row}">-->
-<!--          <router-link-->
-<!--            :to="'/example/edit/'+row.id"-->
-<!--            class="link-type"-->
-<!--          >-->
-<!--            <span>{{ row.title }}</span>-->
-<!--          </router-link>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-
-<!--      <el-table-column-->
-<!--        align="center"-->
-<!--        label="Actions"-->
-<!--        width="120"-->
-<!--      >-->
-<!--        <template slot-scope="{row}">-->
-<!--          <router-link :to="'/example/edit/'+row.id">-->
-<!--            <el-button-->
-<!--              type="primary"-->
-<!--              size="small"-->
-<!--              icon="el-icon-edit"-->
-<!--            >-->
-<!--              Edit-->
-<!--            </el-button>-->
-<!--          </router-link>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
     </el-table>
 
     <pagination
@@ -254,8 +195,30 @@ export default class extends Vue {
   private list: IHistoryLogin[] = []
   private listLoading = true
   private listQuery : IPageParam = defaultPageParam
+  private searchModel : IHistoryLogin = {
+    id: '',
+    sessionId: '',
+    uid: '',
+    username: '',
+    displayName: '',
+    loginType: '',
+    message: '',
+    code: '',
+    provider: '',
+    sourceIp: '',
+    browser: '',
+    platform: '',
+    application: '',
+    loginUrl: '',
+    loginTime: '',
+    logoutTime: ''
+  }
 
   created() {
+    this.getList()
+  }
+
+  private handleFilter() {
     this.getList()
   }
 
