@@ -12,7 +12,6 @@ interface ISettings {
 }
 
 // You can customize below settings :)
-// @ts-ignore
 const settings: ISettings = {
   title: 'ossKey Admin',
   baseUrl: process.env.VUE_APP_BASE_API,

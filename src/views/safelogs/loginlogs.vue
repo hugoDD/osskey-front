@@ -4,6 +4,7 @@
       <el-input
         v-model="searchModel.sourceIp"
         :placeholder="$t('table.title')"
+        v-rsql-eq="listQuery.opt"
         style="width: 200px;"
         class="filter-item"
         @keyup.enter.native="handleFilter"
@@ -182,7 +183,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { IHistoryLogin, IPageParam } from '@/api/types'
 import Pagination from '@/components/Pagination/index.vue'
 import { getLoginLogsPage } from '@/api/logs'
-import { defaultPageParam } from '@/utils/utils'
+import { PageParam } from '@/class/PageParam'
 
 @Component({
   name: 'LoginLog',
@@ -194,7 +195,7 @@ export default class extends Vue {
   private total = 0
   private list: IHistoryLogin[] = []
   private listLoading = true
-  private listQuery : IPageParam = defaultPageParam
+  private listQuery : IPageParam = new PageParam()
   private searchModel : IHistoryLogin = {
     id: '',
     sessionId: '',
@@ -215,10 +216,12 @@ export default class extends Vue {
   }
 
   created() {
+    this.listQuery.opt.clear()
     this.getList()
   }
 
   private handleFilter() {
+    this.listQuery.allOpt(this.searchModel)
     this.getList()
   }
 
