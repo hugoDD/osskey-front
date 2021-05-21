@@ -222,7 +222,7 @@ export default class extends Vue {
   }
 
   private handleFilter() {
-    this.listQuery.allOpt(this.searchModel,this.opt)
+    this.listQuery.allOpt(this.searchModel, this.opt)
     this.getList()
   }
 

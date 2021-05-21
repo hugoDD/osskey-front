@@ -1,4 +1,4 @@
-import {IPageParam} from '@/api/types'
+import { IPageParam } from '@/api/types'
 
 export class PageParam implements IPageParam {
   pageNumber = 1
@@ -47,7 +47,6 @@ export class PageParam implements IPageParam {
             break
         }
       })
-
     })
     if (opt.size > 0) {
       this.rsqlFilter = this.rsqlFilter.substring(0, this.rsqlFilter.length - 1)
