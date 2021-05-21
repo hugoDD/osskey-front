@@ -195,8 +195,7 @@ interface IPageParam {
    * 当前页
    */
   pageNumber: number
-  allOpt<T>(entity: T): IPageParam
-  opt: Map<string, any>
+  allOpt<T>(entity: T,opt: Map<string,Array<string>>): IPageParam
   // sortField: string
   // sortOrder: string
 

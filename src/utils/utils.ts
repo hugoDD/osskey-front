@@ -7,7 +7,6 @@ export const defaultPageParam : IPageParam = {
   pageSize: 10,
   // 当前页
   pageNumber: 1,
-  opt: new Map<string, any>(),
 
   allOpt<T>(entity: T): IPageParam {
     return this

@@ -4,7 +4,7 @@
       <el-input
         v-model="searchModel.sourceIp"
         :placeholder="$t('table.title')"
-        v-rsql-eq="listQuery.opt"
+        v-re="opt"
         style="width: 200px;"
         class="filter-item"
         @keyup.enter.native="handleFilter"
@@ -196,6 +196,7 @@ export default class extends Vue {
   private list: IHistoryLogin[] = []
   private listLoading = true
   private listQuery : IPageParam = new PageParam()
+  private opt: Map<string, Array<string>> = new Map()
   private searchModel : IHistoryLogin = {
     id: '',
     sessionId: '',
@@ -216,12 +217,12 @@ export default class extends Vue {
   }
 
   created() {
-    this.listQuery.opt.clear()
+    this.opt.clear()
     this.getList()
   }
 
   private handleFilter() {
-    this.listQuery.allOpt(this.searchModel)
+    this.listQuery.allOpt(this.searchModel,this.opt)
     this.getList()
   }
 

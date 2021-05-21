@@ -1,53 +1,55 @@
-import { IPageParam } from '@/api/types'
+import {IPageParam} from '@/api/types'
 
 export class PageParam implements IPageParam {
-  opt: Map<string, any> = new Map<string, any>()
   pageNumber = 1
   pageSize = 20
   rsqlFilter = ''
 
-  allOpt(entity: any): IPageParam {
-    console.log(this.opt)
+  allOpt(entity: any, opt: Map<string, Array<string>>): IPageParam {
+    console.log(opt)
     this.rsqlFilter = ''
-    this.opt.forEach((exp, key) => {
+    opt.forEach((expArr, key) => {
       const value = entity[key]
-      switch (exp) {
-        case '==':
-          this.eq(key, value).and()
-          break
-        case '=eq=':
-          this.eq(key, value).and()
-          break
-        case '=ne=':
-          this.ne(key, value).and()
-          break
-        case '=gt=':
-          this.gt(key, value).and()
-          break
-        case '=lt=':
-          this.lt(key, value).and()
-          break
-        case '=gte=':
-          this.gte(key, value).and()
-          break
-        case '=lte=':
-          this.lte(key, value).and()
-          break
-        case '=in=':
-          this.in(key, value).and()
-          break
-        case '=nin=':
-          this.notIn(key, value).and()
-          break
-        case '=ex=':
-          this.ex(key, value).and()
-          break
-        case '=re=':
-          this.re(key, value).and()
-          break
-      }
+      expArr.forEach(exp => {
+        switch (exp) {
+          case '==':
+            this.eq(key, value).and()
+            break
+          case '=eq=':
+            this.eq(key, value).and()
+            break
+          case '=ne=':
+            this.ne(key, value).and()
+            break
+          case '=gt=':
+            this.gt(key, value).and()
+            break
+          case '=lt=':
+            this.lt(key, value).and()
+            break
+          case '=gte=':
+            this.gte(key, value).and()
+            break
+          case '=lte=':
+            this.lte(key, value).and()
+            break
+          case '=in=':
+            this.in(key, value).and()
+            break
+          case '=nin=':
+            this.notIn(key, value).and()
+            break
+          case '=ex=':
+            this.ex(key, value).and()
+            break
+          case '=re=':
+            this.re(key, value).and()
+            break
+        }
+      })
+
     })
-    if (this.opt.size > 0) {
+    if (opt.size > 0) {
       this.rsqlFilter = this.rsqlFilter.substring(0, this.rsqlFilter.length - 1)
     }
     return this
@@ -124,12 +126,12 @@ export class PageParam implements IPageParam {
   }
 
   and(): IPageParam {
-    this.rsqlFilter = this.rsqlFilter + ';'
+    this.rsqlFilter = this.rsqlFilter + ','
     return this
   }
 
   or(): IPageParam {
-    this.rsqlFilter = this.rsqlFilter + ','
+    this.rsqlFilter = this.rsqlFilter + ';'
     return this
   }
 }

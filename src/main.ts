@@ -32,6 +32,7 @@ Vue.use(SvgIcon, {
 
 // Register global directives
 Object.keys(directives).forEach(key => {
+  console.log('directives' + key)
   Vue.directive(key, (directives as { [key: string ]: DirectiveOptions })[key])
 })
 
