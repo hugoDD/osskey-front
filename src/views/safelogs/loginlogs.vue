@@ -9,6 +9,18 @@
         class="filter-item"
         @keyup.enter.native="handleFilter"
       />
+      <el-date-picker
+        v-model="searchModel.loginTime"
+        v-range="opt"
+        type="datetimerange"
+        :range-separator="$t('common.text.to')"
+        :start-placeholder="$t('common.text.startdate')"
+        :end-placeholder="$t('common.text.enddate')"
+        style="width: 350px;"
+        class="filter-item"
+        value-format="yyyy-MM-dd HH:mm:ss"
+        @keyup.enter.native="handleFilter">
+      </el-date-picker>
       <el-button
         v-waves
         class="filter-item"

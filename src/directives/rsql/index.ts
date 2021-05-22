@@ -94,3 +94,21 @@ export const re: DirectiveOptions = {
     setOptExp(opt, key, '=re=')
   }
 }
+
+export const range: DirectiveOptions = {
+  inserted(el, binding, vNode) {
+    const opt: Map<string, any> = binding.value
+    const key = getOptKey(vNode)
+    setOptExp(opt, key, '=lt=')
+    setOptExp(opt, key, '=gt=')
+  }
+}
+
+export const rangeEq: DirectiveOptions = {
+  inserted(el, binding, vNode) {
+    const opt: Map<string, any> = binding.value
+    const key = getOptKey(vNode)
+    setOptExp(opt, key, '=lte=')
+    setOptExp(opt, key, '=gte=')
+  }
+}

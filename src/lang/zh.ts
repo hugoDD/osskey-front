@@ -332,6 +332,63 @@ export default {
       username: '操作人'
     }
   },
+  apps: {
+    number: '序号',
+    icon: '图标',
+    name: '应用名称',
+    protocol: '访问协议',
+    category: '类型',
+    account: '账号',
+    oauth: {
+      approval: {
+        title: 'OAuth 授权请求',
+        info: '此第三方应用请求获得以下权限:',
+        context: '访问你的个人信息',
+        authorize: '同意授权'
+      }
+    }
+  },
+  common: {
+    window: {
+      title: '窗口'
+    },
+    alert: {
+      title: '提示信息',
+      closeText: '关闭'
+    },
+    conform: {
+      title: '确认提示',
+      yes: '确定',
+      no: '关闭'
+    },
+    select: {
+      hintText: '请选择您要操作的数据'
+    },
+    delete: {
+      hintText: '您确定要删除吗?'
+    },
+    grid: {
+      loadtext: '正在加载...',
+      loadnodata: '没有查询到符合数据'
+    },
+    submit: {
+      hintText: '您确定要进行此项操作吗?',
+      errorText: '执行操作失败'
+    },
+    text: {
+      to: '至',
+      startdate: '开始时间',
+      enddate: '结束时间',
+      createdby: '创建人',
+      createddate: '创建时间',
+      modifiedby: '修改人',
+      modifieddate: '修改时间',
+      status: {
+        enabled: '启用',
+        disabled: '停用'
+      }
+    }
+  },
   settings: {
     title: '系统布局配置',
     theme: '主题色',
