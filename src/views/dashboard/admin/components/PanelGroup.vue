@@ -21,12 +21,12 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            New Visits
+           {{$t('main.rpt.onlineuser')}}
           </div>
           <count-to
             :start-val="0"
-            :end-val="102400"
-            :duration="2600"
+            :end-val="rptOnlineUsers"
+            :duration="1"
             class="card-panel-num"
           />
         </div>
@@ -50,12 +50,12 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Messages
+           {{$t('main.rpt.daycount')}}
           </div>
           <count-to
             :start-val="0"
-            :end-val="81212"
-            :duration="3000"
+            :end-val="rptOnlineUsers"
+            :duration="5"
             class="card-panel-num"
           />
         </div>
@@ -79,12 +79,12 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Purchases
+            {{$t('main.rpt.newuser')}}
           </div>
           <count-to
             :start-val="0"
-            :end-val="9280"
-            :duration="3200"
+            :end-val="rptNewUsers"
+            :duration="1"
             class="card-panel-num"
           />
         </div>
@@ -108,12 +108,12 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Shoppings
+            {{$t('main.rpt.activeuser')}}
           </div>
           <count-to
             :start-val="0"
-            :end-val="13600"
-            :duration="3600"
+            :end-val="rptActiveUsers"
+            :duration="1"
             class="card-panel-num"
           />
         </div>
@@ -125,6 +125,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import CountTo from 'vue-count-to'
+import { getAnalysisMain } from '@/api/app'
+import { getOptLogsPage } from '@/api/logs'
 
 @Component({
   name: 'PanelGroup',
@@ -133,6 +135,33 @@ import CountTo from 'vue-count-to'
   }
 })
 export default class extends Vue {
+  private rptDayCount=0
+  private rptNewUsers = 0
+  private rptOnlineUsers = 0
+  private rptActiveUsers =0
+
+  private rptMonth: Map<string, any>[] =[]
+  private rptDayHour: Map<string, any>[] =[]
+  private rptBrowser: Map<string, any>[] =[]
+  private rptApp: Map<string, any>[] =[]
+
+  created() {
+    this.getList()
+  }
+
+  private async getList() {
+    const { data } = await getAnalysisMain()
+    this.rptDayCount = data.rptDayCount
+    this.rptNewUsers = data.rptNewUsers
+    this.rptOnlineUsers = data.rptOnlineUsers
+    this.rptActiveUsers = data.rptActiveUsers
+
+    this.rptMonth = data.rptMonth
+    this.rptDayHour = data.rptDayHour
+    this.rptBrowser = data.rptBrowser
+    this.rptApp = data.rptApp
+  }
+
   private handleSetLineChartData(type: string) {
     this.$emit('handle-set-line-chart-data', type)
   }

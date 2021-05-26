@@ -389,6 +389,21 @@ export default {
       }
     }
   },
+  main: {
+    rpt: {
+      newuser: '当月新用户',
+      activeuser: '本月活跃用户',
+      onlineuser: '用户在线',
+      daycount: '当天访问量',
+      dayhour: '当天访问情况',
+      month: '30天访问情况',
+      count: '访问量',
+      appaccess: '30天应用访问统计',
+      app: '应用名称',
+      browseraccess: '30天浏览器统计',
+      browser: '浏览器'
+    }
+  },
   settings: {
     title: '系统布局配置',
     theme: '主题色',
