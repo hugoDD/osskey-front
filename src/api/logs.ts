@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import {IPageParam} from "@/api/types";
+import { IPageParam } from '@/api/types'
 
 export const getLoginLogsPage = (data: IPageParam) =>
   request({

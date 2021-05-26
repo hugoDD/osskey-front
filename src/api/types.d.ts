@@ -179,8 +179,6 @@ export interface IHistoryLogs {
   code: string
   createdBy: string
   createdDate: string
-  modifiedBy: string
-  modifiedDate: string
 
 }
 
@@ -195,7 +193,7 @@ interface IPageParam {
    * 当前页
    */
   pageNumber: number
-  allOpt<T>(entity: T,opt: Map<string,Array<string>>): IPageParam
+  allOpt<T>(entity: T, opt: Map<string, Array<string>>): IPageParam
   // sortField: string
   // sortOrder: string
 

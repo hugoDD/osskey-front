@@ -114,9 +114,9 @@ import PanelGroup from './components/PanelGroup.vue'
 export default class extends Vue {
   // private lineChartData = lineChartData.newVisitis
   //
-  private handleSetLineChartData(type: string) {
-    // this.lineChartData = lineChartData[type]
-  }
+  // private handleSetLineChartData(type: string) {
+  // this.lineChartData = lineChartData[type]
+  // }
 }
 </script>
 

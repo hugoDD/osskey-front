@@ -9,6 +9,7 @@ export const defaultPageParam : IPageParam = {
   pageNumber: 1,
 
   allOpt<T>(entity: T): IPageParam {
+    console.log(entity)
     return this
   },
 
