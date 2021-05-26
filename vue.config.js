@@ -25,7 +25,7 @@ module.exports = {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
         // target: `http://127.0.0.1:${mockServerPort}/mock-api/v1`,
-        target: `http://127.0.0.1:${mockServerPort}/maxkey`,
+        target: `http://127.0.0.1:${mockServerPort}/maxkey-mgt`,
         changeOrigin: true, // needed for virtual hosted sites
         ws: true, // proxy websockets
         pathRewrite: {
