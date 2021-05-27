@@ -25,7 +25,7 @@
           </div>
           <count-to
             :start-val="0"
-            :end-val="rptOnlineUsers"
+            :end-val="data.rptOnlineUsers"
             :duration="1"
             class="card-panel-num"
           />
@@ -54,7 +54,7 @@
           </div>
           <count-to
             :start-val="0"
-            :end-val="rptOnlineUsers"
+            :end-val="data.rptOnlineUsers"
             :duration="5"
             class="card-panel-num"
           />
@@ -83,7 +83,7 @@
           </div>
           <count-to
             :start-val="0"
-            :end-val="rptNewUsers"
+            :end-val="data.rptNewUsers"
             :duration="1"
             class="card-panel-num"
           />
@@ -112,7 +112,7 @@
           </div>
           <count-to
             :start-val="0"
-            :end-val="rptActiveUsers"
+            :end-val="data.rptActiveUsers"
             :duration="1"
             class="card-panel-num"
           />
@@ -123,10 +123,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import CountTo from 'vue-count-to'
 import { getAnalysisMain } from '@/api/app'
-import { getOptLogsPage } from '@/api/logs'
+import { UIPanelGroupData } from '@/views/dashboard/admin/UITypes'
 
 @Component({
   name: 'PanelGroup',
@@ -135,32 +135,7 @@ import { getOptLogsPage } from '@/api/logs'
   }
 })
 export default class extends Vue {
-  private rptDayCount=0
-  private rptNewUsers = 0
-  private rptOnlineUsers = 0
-  private rptActiveUsers =0
-
-  private rptMonth: Map<string, any>[] =[]
-  private rptDayHour: Map<string, any>[] =[]
-  private rptBrowser: Map<string, any>[] =[]
-  private rptApp: Map<string, any>[] =[]
-
-  created() {
-    this.getList()
-  }
-
-  private async getList() {
-    const { data } = await getAnalysisMain()
-    this.rptDayCount = data.rptDayCount
-    this.rptNewUsers = data.rptNewUsers
-    this.rptOnlineUsers = data.rptOnlineUsers
-    this.rptActiveUsers = data.rptActiveUsers
-
-    this.rptMonth = data.rptMonth
-    this.rptDayHour = data.rptDayHour
-    this.rptBrowser = data.rptBrowser
-    this.rptApp = data.rptApp
-  }
+  @Prop({ required: true }) private data!: UIPanelGroupData
 
   private handleSetLineChartData(type: string) {
     this.$emit('handle-set-line-chart-data', type)

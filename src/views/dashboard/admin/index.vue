@@ -2,7 +2,7 @@
   <div class="dashboard-editor-container">
     <github-corner class="github-corner" />
 
-    <panel-group @handle-set-line-chart-data="handleSetLineChartData" />
+    <panel-group :data="panelGroupData" @handle-set-line-chart-data="handleSetLineChartData" />
 
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
       <line-chart :chart-data="lineChartData" />
@@ -38,38 +38,38 @@
       </el-col>
     </el-row>
 
-    <el-row :gutter="8">
-      <el-col
-        :xs="{span: 24}"
-        :sm="{span: 24}"
-        :md="{span: 24}"
-        :lg="{span: 12}"
-        :xl="{span: 12}"
-        style="padding-right:8px;margin-bottom:30px;"
-      >
-        <transaction-table />
-      </el-col>
-      <el-col
-        :xs="{span: 24}"
-        :sm="{span: 12}"
-        :md="{span: 12}"
-        :lg="{span: 6}"
-        :xl="{span: 6}"
-        style="margin-bottom:30px;"
-      >
-        <todo-list />
-      </el-col>
-      <el-col
-        :xs="{span: 24}"
-        :sm="{span: 12}"
-        :md="{span: 12}"
-        :lg="{span: 6}"
-        :xl="{span: 6}"
-        style="margin-bottom:30px;"
-      >
-        <box-card />
-      </el-col>
-    </el-row>
+<!--    <el-row :gutter="8">-->
+<!--      <el-col-->
+<!--        :xs="{span: 24}"-->
+<!--        :sm="{span: 24}"-->
+<!--        :md="{span: 24}"-->
+<!--        :lg="{span: 12}"-->
+<!--        :xl="{span: 12}"-->
+<!--        style="padding-right:8px;margin-bottom:30px;"-->
+<!--      >-->
+<!--        <transaction-table />-->
+<!--      </el-col>-->
+<!--      <el-col-->
+<!--        :xs="{span: 24}"-->
+<!--        :sm="{span: 12}"-->
+<!--        :md="{span: 12}"-->
+<!--        :lg="{span: 6}"-->
+<!--        :xl="{span: 6}"-->
+<!--        style="margin-bottom:30px;"-->
+<!--      >-->
+<!--        <todo-list />-->
+<!--      </el-col>-->
+<!--      <el-col-->
+<!--        :xs="{span: 24}"-->
+<!--        :sm="{span: 12}"-->
+<!--        :md="{span: 12}"-->
+<!--        :lg="{span: 6}"-->
+<!--        :xl="{span: 6}"-->
+<!--        style="margin-bottom:30px;"-->
+<!--      >-->
+<!--        <box-card />-->
+<!--      </el-col>-->
+<!--    </el-row>-->
   </div>
 </template>
 
@@ -79,30 +79,25 @@ import { Component, Vue } from 'vue-property-decorator'
 import GithubCorner from '@/components/GithubCorner/index.vue'
 import BarChart from './components/BarChart.vue'
 import BoxCard from './components/BoxCard.vue'
-import LineChart, { ILineChartData } from './components/LineChart.vue'
+import LineChart from './components/LineChart.vue'
 import PanelGroup from './components/PanelGroup.vue'
 import PieChart from './components/PieChart.vue'
 import RadarChart from './components/RadarChart.vue'
 import TodoList from './components/TodoList/index.vue'
 import TransactionTable from './components/TransactionTable.vue'
+import { getAnalysisMain } from '@/api/app'
+import { UIPanelGroupData, ILineChartData } from '@/views/dashboard/admin/UITypes'
 
-const lineChartData: { [type: string]: ILineChartData } = {
-  newVisitis: {
-    expectedData: [100, 120, 161, 134, 105, 160, 165],
-    actualData: [120, 82, 91, 154, 162, 140, 145]
-  },
-  messages: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
-    actualData: [180, 160, 151, 106, 145, 150, 130]
-  },
-  purchases: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130]
-  },
-  shoppings: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
-  }
+const lineChartData: ILineChartData = {
+  activeUsersOfWeek: [0, 0, 0, 0, 0, 0, 0],
+  rptOfWeek: [0, 0, 0, 0, 0, 0, 0]
+}
+
+const pgData: UIPanelGroupData = {
+  rptDayCount: 0,
+  rptNewUsers: 0,
+  rptOnlineUsers: 0,
+  rptActiveUsers: 0
 }
 
 @Component({
@@ -110,20 +105,39 @@ const lineChartData: { [type: string]: ILineChartData } = {
   components: {
     GithubCorner,
     BarChart,
-    BoxCard,
+    // BoxCard,
     LineChart,
     PanelGroup,
     PieChart,
-    RadarChart,
-    TodoList,
-    TransactionTable
+    RadarChart
+    // TodoList
+    // TransactionTable
   }
 })
 export default class extends Vue {
-  private lineChartData = lineChartData.newVisitis
+  private panelGroupData: UIPanelGroupData= pgData
+  private lineChartData = lineChartData
+
+  created() {
+    this.getList()
+  }
+
+  private async getList() {
+    const { data } = await getAnalysisMain()
+    this.panelGroupData.rptDayCount = data.rptDayCount
+    this.panelGroupData.rptNewUsers = data.rptNewUsers
+    this.panelGroupData.rptOnlineUsers = data.rptOnlineUsers
+    this.panelGroupData.rptActiveUsers = data.rptActiveUsers
+
+    this.lineChartData = data.analysis
+    // this.rptMonth = data.rptMonth
+    // this.rptDayHour = data.rptDayHour
+    // this.rptBrowser = data.rptBrowser
+    // this.rptApp = data.rptApp
+  }
 
   private handleSetLineChartData(type: string) {
-    this.lineChartData = lineChartData[type]
+    this.getList()
   }
 }
 </script>
