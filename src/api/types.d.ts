@@ -182,6 +182,40 @@ export interface IHistoryLogs {
 
 }
 
+export interface Organizations{
+  id:string
+  code:string
+  name:string
+  fullName:string
+  parentId:string
+  parentName:string
+  type:string
+  codePath:string
+  namePath:string
+  level:string
+  hasChild:string
+  division:string
+  country:string
+  region:string
+  locality:string
+  street:string
+  address:string
+  contact:string
+  postalCode:string
+  phone:string
+  fax:string
+  email:string
+  sortIndex:string
+  description:string
+  sortOrder:string
+  status:number
+}
+
+interface ISearchFilter {
+  // 过滤条件
+  rsqlFilter: string
+}
+
 interface IPageParam {
   // 过滤条件
   rsqlFilter: string

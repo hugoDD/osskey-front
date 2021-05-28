@@ -9,31 +9,31 @@
     </el-row>
 
     <el-row :gutter="32">
+<!--      <el-col-->
+<!--        :xs="24"-->
+<!--        :sm="24"-->
+<!--        :lg="8"-->
+<!--      >-->
+<!--        <div class="chart-wrapper">-->
+<!--          <radar-chart />-->
+<!--        </div>-->
+<!--      </el-col>-->
       <el-col
         :xs="24"
         :sm="24"
         :lg="8"
       >
         <div class="chart-wrapper">
-          <radar-chart />
+          <pie-chart :chart-data="pieChartData"/>
         </div>
       </el-col>
       <el-col
         :xs="24"
         :sm="24"
-        :lg="8"
+        :lg="16"
       >
         <div class="chart-wrapper">
-          <pie-chart />
-        </div>
-      </el-col>
-      <el-col
-        :xs="24"
-        :sm="24"
-        :lg="8"
-      >
-        <div class="chart-wrapper">
-          <bar-chart />
+          <bar-chart :chart-data="barChartData"/>
         </div>
       </el-col>
     </el-row>
@@ -78,15 +78,12 @@ import 'echarts/theme/macarons.js' // Theme used in BarChart, LineChart, PieChar
 import { Component, Vue } from 'vue-property-decorator'
 import GithubCorner from '@/components/GithubCorner/index.vue'
 import BarChart from './components/BarChart.vue'
-import BoxCard from './components/BoxCard.vue'
 import LineChart from './components/LineChart.vue'
 import PanelGroup from './components/PanelGroup.vue'
 import PieChart from './components/PieChart.vue'
 import RadarChart from './components/RadarChart.vue'
-import TodoList from './components/TodoList/index.vue'
-import TransactionTable from './components/TransactionTable.vue'
 import { getAnalysisMain } from '@/api/app'
-import { UIPanelGroupData, ILineChartData } from '@/views/dashboard/admin/UITypes'
+import { UIPanelGroupData, ILineChartData, IPieChartData, IBarData } from '@/views/dashboard/admin/UITypes'
 
 const lineChartData: ILineChartData = {
   activeUsersOfWeek: [0, 0, 0, 0, 0, 0, 0],
@@ -98,6 +95,11 @@ const pgData: UIPanelGroupData = {
   rptNewUsers: 0,
   rptOnlineUsers: 0,
   rptActiveUsers: 0
+}
+
+const defaultPieChartData : IPieChartData = {
+  legendData: [],
+  seriesData: []
 }
 
 @Component({
@@ -117,6 +119,8 @@ const pgData: UIPanelGroupData = {
 export default class extends Vue {
   private panelGroupData: UIPanelGroupData= pgData
   private lineChartData = lineChartData
+  private pieChartData = defaultPieChartData
+  private barChartData: IBarData[] = []
 
   created() {
     this.getList()
@@ -130,10 +134,8 @@ export default class extends Vue {
     this.panelGroupData.rptActiveUsers = data.rptActiveUsers
 
     this.lineChartData = data.analysis
-    // this.rptMonth = data.rptMonth
-    // this.rptDayHour = data.rptDayHour
-    // this.rptBrowser = data.rptBrowser
-    // this.rptApp = data.rptApp
+    this.pieChartData = data.pieBrowser
+    this.barChartData = data.rptApp
   }
 
   private handleSetLineChartData(type: string) {

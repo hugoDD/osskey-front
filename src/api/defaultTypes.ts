@@ -1,0 +1,30 @@
+import {Organizations} from "@/api/types";
+
+export const defaultOrg: Organizations = {
+  id: '',
+  code: '',
+  name: '',
+  fullName: '',
+  parentId: '',
+  parentName: '',
+  type: '',
+  codePath: '',
+  namePath: '',
+  level: '',
+  hasChild: '',
+  division: '',
+  country: '',
+  region: '',
+  locality: '',
+  street: '',
+  address: '',
+  contact: '',
+  postalCode: '',
+  phone: '',
+  fax: '',
+  email: '',
+  sortIndex: '',
+  description: '',
+  sortOrder: '',
+  status: 0
+}

@@ -19,6 +19,19 @@ import '@/pwa/register-service-worker'
 import * as directives from '@/directives'
 import * as filters from '@/filters'
 
+Vue.prototype.msgSuccess = function (msg: string) {
+  this.$message({ showClose: true, message: msg, type: "success" });
+}
+
+Vue.prototype.msgError = function (msg: string) {
+  this.$message({ showClose: true, message: msg, type: "error" });
+}
+
+Vue.prototype.msgInfo = function (msg: string) {
+  this.$message.info(msg);
+}
+
+
 Vue.use(ElementUI, {
   size: AppModule.size, // Set element-ui default size
   i18n: (key: string, value: string) => i18n.t(key, value)

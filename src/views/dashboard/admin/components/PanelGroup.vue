@@ -125,7 +125,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import CountTo from 'vue-count-to'
-import { getAnalysisMain } from '@/api/app'
 import { UIPanelGroupData } from '@/views/dashboard/admin/UITypes'
 
 @Component({
