@@ -28,6 +28,8 @@ export default {
     lineChart: '折线图',
     mixedChart: '混合图表',
     example: '综合实例',
+    system: '系统管理',
+    organization: '组织管理',
     safelogs: '安全审计',
     loginLog: '登录日志',
     accessLog: '访问日志',
@@ -403,6 +405,33 @@ export default {
       browseraccess: '30天浏览器统计',
       browser: '浏览器'
     }
+  },
+  org: {
+    tab:{
+      basic: '基本信息',
+      extra: '扩展信息'
+    },
+    id: '机构编号',
+    name: '机构名称',
+    pid: '父级编号',
+    pname: '父级名称',
+    fullname: '机构全称',
+    xpath: 'ID路径',
+    xnamepath: '名称路径',
+    type: '类型',
+    division: '分支机构',
+    contact: '联系人',
+    phone: '电话',
+    email: '邮箱',
+    fax: '传真',
+    country: '国家',
+    region: '省/市/区',
+    locality: '城市',
+    street: '街道',
+    address: '地址',
+    postalcode: '邮编',
+    sortorder: '排序',
+    description: '描述'
   },
   settings: {
     title: '系统布局配置',

@@ -182,7 +182,7 @@ export interface IHistoryLogs {
 
 }
 
-export interface Organizations{
+export interface Organizations extends AbstractBaseDomain{
   id:string
   code:string
   name:string
@@ -208,8 +208,18 @@ export interface Organizations{
   sortIndex:string
   description:string
   sortOrder:string
-  status:number
+  status:string
 }
+
+interface AbstractBaseDomain{
+  description:string
+  createdBy:string
+  createdDate:string
+  modifiedBy:string
+  modifiedDate:string
+}
+
+
 
 interface ISearchFilter {
   // 过滤条件

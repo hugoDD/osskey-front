@@ -139,6 +139,7 @@ export default class extends Vue {
   }
 
   private handleSetLineChartData(type: string) {
+    console.log('type:' + type)
     this.getList()
   }
 }

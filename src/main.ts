@@ -18,6 +18,7 @@ import '@/utils/error-log'
 import '@/pwa/register-service-worker'
 import * as directives from '@/directives'
 import * as filters from '@/filters'
+import { download, handleTree, resetForm } from '@/utils/global'
 
 Vue.prototype.msgSuccess = function (msg: string) {
   this.$message({ showClose: true, message: msg, type: "success" });
@@ -28,8 +29,12 @@ Vue.prototype.msgError = function (msg: string) {
 }
 
 Vue.prototype.msgInfo = function (msg: string) {
-  this.$message.info(msg);
+  this.$message.info(msg)
 }
+
+Vue.prototype.resetForm = resetForm
+Vue.prototype.download = download
+Vue.prototype.handleTree = handleTree
 
 
 Vue.use(ElementUI, {
@@ -53,6 +58,7 @@ Object.keys(directives).forEach(key => {
 Object.keys(filters).forEach(key => {
   Vue.filter(key, (filters as { [key: string ]: Function })[key])
 })
+
 
 Vue.config.productionTip = false
 

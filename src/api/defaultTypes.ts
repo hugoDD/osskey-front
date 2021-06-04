@@ -10,7 +10,7 @@ export const defaultOrg: Organizations = {
   type: '',
   codePath: '',
   namePath: '',
-  level: '',
+  level: '0',
   hasChild: '',
   division: '',
   country: '',
@@ -23,8 +23,12 @@ export const defaultOrg: Organizations = {
   phone: '',
   fax: '',
   email: '',
-  sortIndex: '',
+  sortIndex: '0',
   description: '',
   sortOrder: '',
-  status: 0
+  status: '1',
+  createdBy:'',
+  createdDate:'',
+  modifiedBy:'',
+  modifiedDate:''
 }

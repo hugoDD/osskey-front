@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import JsonBox from './json-box'
 import Clipboard from 'clipboard'
 import { debounce } from './utils'

@@ -10,15 +10,16 @@ export interface ILineChartData {
   rptOfWeek: number[]
 }
 
+export interface IPieData {
+  value: number
+  name: string
+}
+
 export interface IPieChartData {
   legendData : string[]
   seriesData: IPieData[]
 }
 
-export interface IPieData {
-  value: number
-  name: string
-}
 
 export interface IBarData {
   name: string

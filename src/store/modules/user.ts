@@ -23,6 +23,7 @@ class User extends VuexModule implements IUserState {
   public avatar = ''
   public introduction = ''
   public roles: string[] = []
+  public permissions: string[] = []
   public email = ''
   public mobile = ''
 
@@ -44,6 +45,11 @@ class User extends VuexModule implements IUserState {
   @Mutation
   private SET_INTRODUCTION(introduction: string) {
     this.introduction = introduction
+  }
+
+  @Mutation
+  private SET_PERMISSIONS(permissions: string[]) {
+    this.permissions = permissions
   }
 
   @Mutation
@@ -109,6 +115,7 @@ class User extends VuexModule implements IUserState {
     this.SET_INTRODUCTION(introduction)
     this.SET_EMAIL(email)
     this.SET_MOBILE(phone)
+    this.SET_PERMISSIONS(['*:*:*'])
   }
 
   @Action

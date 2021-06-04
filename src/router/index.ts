@@ -204,6 +204,26 @@ export const asyncRoutes: RouteConfig[] = [
   tableRouter,
   safeLogsRouter,
   {
+    path: '/system',
+    component: Layout,
+    redirect: 'noredirect',
+    meta: {
+      title: 'system',
+      icon: 'example'
+    },
+    children: [
+      {
+        path: 'org',
+        component: () => import(/* webpackChunkName: "org-list" */ '@/views/system/org.vue'),
+        name: 'OrgList',
+        meta: {
+          title: 'organization',
+          icon: 'list'
+        }
+      }
+    ]
+  },
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/list',
