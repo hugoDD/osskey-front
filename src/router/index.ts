@@ -214,7 +214,7 @@ export const asyncRoutes: RouteConfig[] = [
     children: [
       {
         path: 'org',
-        component: () => import(/* webpackChunkName: "org-list" */ '@/views/system/org.vue'),
+        component: () => import(/* webpackChunkName: "org-list" */ '@/views/system/org/index.vue'),
         name: 'OrgList',
         meta: {
           title: 'organization',
