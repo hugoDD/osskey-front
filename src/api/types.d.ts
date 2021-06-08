@@ -64,6 +64,7 @@ export interface IProfile {
 }
 
 export interface IUserInfo {
+  id: string
   username: string
   userType: string
   windowsAccount: string
@@ -133,6 +134,7 @@ export interface IUserInfo {
   ims: string
   extraAttribute: string
   online: bigint
+  status: string
 }
 
 /*
@@ -206,9 +208,14 @@ export interface Organizations extends AbstractBaseDomain{
   fax:string
   email:string
   sortIndex:string
-  description:string
   sortOrder:string
   status:string
+}
+
+
+
+interface MultipartFile{
+
 }
 
 interface AbstractBaseDomain{

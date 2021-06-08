@@ -1,4 +1,4 @@
-import { IPageParam } from '@/api/types'
+import {IPageParam, IUserInfo} from '@/api/types'
 
 export const defaultPageParam : IPageParam = {
   // 过滤条件
@@ -83,4 +83,78 @@ export const defaultPageParam : IPageParam = {
     this.rsqlFilter = this.rsqlFilter + ','
     return this
   }
+}
+
+export const defaultUserInfo: IUserInfo = {
+  id: '',
+  username: '',
+  userType: '',
+  windowsAccount: '',
+  displayName: '',
+  nickName: '',
+  nameZHSpell: '',
+  nameZHShortSpell: '',
+  givenName: '',
+  middleName: '',
+  familyName: '',
+  honorificPrefix: '',
+  honorificSuffix: '',
+  formattedName: '',
+  married: 0,
+  gender: 0,
+  birthDate: '',
+  picture: '',
+  idType: 0,
+  idCardNo: '',
+  webSite: '',
+  startWorkDate: '',
+  authnType: 0,
+  email: '',
+  mobile: '',
+  mobileVerified: 0,
+  lastLoginTime: '',
+  lastLoginIp: '',
+  lastLogoffTime: '',
+  passwordSetType: 0,
+  password: '',
+  loginCount: 0,
+  locale: '',
+  timeZone: '',
+  preferredLanguage: '',
+  workCountry: '',
+  workRegion: '',// provinc
+  workLocality: '',// city: '',
+  workStreetAddress: '',
+  workAddressFormatted: '',
+  workEmail: '',
+  workPhoneNumber: '',
+  workPostalCode: '',
+  workFax: '',
+  homeCountry: '',
+  homeRegion: '',// provinc
+  homeLocality: '',// city: '',
+  homeStreetAddress: '',
+  homeAddressFormatted: '',
+  homeEmail: '',
+  homePhoneNumber: '',
+  homePostalCode: '',
+  homeFax: '',
+  employeeNumber: '',
+  costCenter: '',
+  organization: '',
+  division: '',
+  departmentId: '',
+  department: '',
+  jobTitle: '',
+  jobLevel: '',
+  managerId: '',
+  manager: '',
+  assistantId: '',
+  assistant: '',
+  entryDate: '',
+  quitDate: '',
+  ims: '',
+  extraAttribute: '',
+  online: 0,
+  status: ''
 }

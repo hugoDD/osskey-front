@@ -343,62 +343,71 @@
   </div>
 </template>
 
-<script>
-import { listUser, getUser, delUser, addUser, updateUser, exportUser, resetUserPwd, changeUserStatus, importTemplate } from "@/api/system/user";
-import { getToken } from "@/utils/auth";
-import { treeselect } from "@/api/system/dept";
-import Treeselect from "@riophae/vue-treeselect";
-import "@riophae/vue-treeselect/dist/vue-treeselect.css";
-
-export default {
-  name: "User",
-  components: { Treeselect },
-  data() {
-    return {
+<script lang="ts">
+import {Component, Vue, Watch} from 'vue-property-decorator'
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import {ElTree, TreeData} from 'element-ui/types/tree'
+import {sysNormalDisable, sysUserSex} from "@/utils/options";
+import {listUsers, updateUser, addUser, delUser, getUser} from "@/api/app/user";
+import {IPageParam, IUserInfo, Organizations} from "@/api/types";
+import {PageParam} from "@/class/PageParam";
+import {listOrgs} from "@/api/app/orgs";
+import {handleTree} from "@/utils/global";
+import {Form} from "element-ui";
+import {defaultUserInfo} from "@/utils/utils";
+@Component({
+  name:'User',
+  components:{ Treeselect }
+})
+export default class extends Vue{
+  myThis:any = this
+  private opt: Map<string, Array<string>> = new Map()
+  private listQuery : IPageParam = new PageParam()
       // 遮罩层
-      loading: true,
+  private    loading= true
       // 导出遮罩层
-      exportLoading: false,
+  private   exportLoading= false
       // 选中数组
-      ids: [],
+  private   ids: string[] = []
       // 非单个禁用
-      single: true,
+  private    single= true
       // 非多个禁用
-      multiple: true,
+  private    multiple= true
       // 显示搜索条件
-      showSearch: true,
+  private   showSearch= true
       // 总条数
-      total: 0,
+  private   total= 0
       // 用户表格数据
-      userList: null,
+  private   userList: IUserInfo[]= []
       // 弹出层标题
-      title: "",
+  private    title= ""
       // 部门树选项
-      deptOptions: undefined,
+  private   deptOptions:Organizations[]= []
       // 是否显示弹出层
-      open: false,
+  private   open= false
       // 部门名称
-      deptName: undefined,
+  private    deptName= undefined
       // 默认密码
-      initPassword: undefined,
+  private   initPassword= '*'
       // 日期范围
-      dateRange: [],
+  private   dateRange= []
       // 状态数据字典
-      statusOptions: [],
+  private    statusOptions= sysNormalDisable
       // 性别状态字典
-      sexOptions: [],
+  private   sexOptions= sysUserSex
       // 岗位选项
-      postOptions: [],
+  private   postOptions= []
       // 角色选项
-      roleOptions: [],
+  private   roleOptions= []
       // 表单参数
-      form: {},
-      defaultProps: {
+  private   form: IUserInfo = defaultUserInfo
+  private   defaultProps= {
         children: "children",
         label: "label"
-      },
+      }
       // 用户导入参数
-      upload: {
+  private    upload= {
         // 是否显示弹出层（用户导入）
         open: false,
         // 弹出层标题（用户导入）
@@ -408,21 +417,21 @@ export default {
         // 是否更新已经存在的用户数据
         updateSupport: 0,
         // 设置上传的请求头部
-        headers: { Authorization: "Bearer " + getToken() },
+       // headers: { Authorization: "Bearer " + getToken() },
         // 上传的地址
         url: process.env.VUE_APP_BASE_API + "/system/user/importData"
-      },
+      }
       // 查询参数
-      queryParams: {
-        pageNum: 1,
-        pageSize: 10,
+  private queryParams= {
+        pageNum = 1,
+        pageSize =  10,
         userName: undefined,
         phonenumber: undefined,
         status: undefined,
         deptId: undefined
-      },
+      }
       // 列信息
-      columns: [
+  private   columns= [
         { key: 0, label: `用户编号`, visible: true },
         { key: 1, label: `用户名称`, visible: true },
         { key: 2, label: `用户昵称`, visible: true },
@@ -430,9 +439,9 @@ export default {
         { key: 4, label: `手机号码`, visible: true },
         { key: 5, label: `状态`, visible: true },
         { key: 6, label: `创建时间`, visible: true }
-      ],
+      ]
       // 表单校验
-      rules: {
+  private  rules= {
         userName: [
           { required: true, message: "用户名称不能为空", trigger: "blur" }
         ],
@@ -457,139 +466,120 @@ export default {
           }
         ]
       }
-    };
-  },
-  watch: {
-    // 根据名称筛选部门树
-    deptName(val) {
-      this.$refs.tree.filter(val);
-    }
-  },
+
+  @Watch("deptName")
+  private onOrgNameWatch(val: string){
+    (this.$refs.tree as ElTree<string, TreeData>).filter(val);
+  }
+
+  // watch: {
+  //   // 根据名称筛选部门树
+  //   deptName(val) {
+  //     this.$refs.tree.filter(val);
+  //   }
+  // },
   created() {
-    this.getList();
-    this.getTreeselect();
-    this.getDicts("sys_normal_disable").then(response => {
-      this.statusOptions = response.data;
-    });
-    this.getDicts("sys_user_sex").then(response => {
-      this.sexOptions = response.data;
-    });
-    this.getConfigKey("sys.user.initPassword").then(response => {
-      this.initPassword = response.msg;
-    });
-  },
-  methods: {
+    this.getList()
+    this.getTreeselect()
+  }
     /** 查询用户列表 */
-    getList() {
+    private async getList() {
       this.loading = true;
-      listUser(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-          this.userList = response.rows;
-          this.total = response.total;
-          this.loading = false;
-        }
-      );
-    },
+      const {data} = await listUsers(this.listQuery)
+      this.userList = data.items
+      this.total = data.total
+      setTimeout(() => {
+        this.loading = false
+      }, 0.5 * 1000)
+
+    }
     /** 查询部门下拉树结构 */
-    getTreeselect() {
-      treeselect().then(response => {
-        this.deptOptions = response.data;
-      });
-    },
+    private async getTreeselect() {
+      const {data} = await listOrgs(this.listQuery)
+      this.deptOptions = handleTree(data.items, 'id', 'parentId', 'children')
+
+    }
     // 筛选节点
-    filterNode(value, data) {
+    private filterNode(value: string, data: TreeData) {
       if (!value) return true;
-      return data.label.indexOf(value) !== -1;
-    },
+      return data.label?.indexOf(value) !== -1;
+    }
     // 节点单击事件
-    handleNodeClick(data) {
-      this.queryParams.deptId = data.id;
-      this.getList();
-    },
+    private handleNodeClick(data: TreeData) {
+      this.queryParams.deptId = data.id
+      this.getList()
+    }
     // 用户状态修改
-    handleStatusChange(row) {
-      let text = row.status === "0" ? "启用" : "停用";
-      this.$confirm('确认要"' + text + '""' + row.userName + '"用户吗?', "警告", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(function() {
-          return changeUserStatus(row.userId, row.status);
+    private handleStatusChange(row: IUserInfo) {
+      let text = row.status === '1' ? '启用' : '停用'
+      this.$confirm('确认要"' + text + '""' + row.username + '"用户吗?', "警告", {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
         }).then(() => {
-          this.msgSuccess(text + "成功");
-        }).catch(function() {
-          row.status = row.status === "0" ? "1" : "0";
-        });
-    },
+          row.status = row.status==="1"?'0':'1'
+          updateUser(row)
+        }).then(() =>{
+          this.myThis.msgSuccess(text + "成功")
+      })
+    }
     // 取消按钮
-    cancel() {
-      this.open = false;
-      this.reset();
-    },
+   private  cancel() {
+      this.open = false
+      this.reset()
+    }
     // 表单重置
-    reset() {
-      this.form = {
-        userId: undefined,
-        deptId: undefined,
-        userName: undefined,
-        nickName: undefined,
-        password: undefined,
-        phonenumber: undefined,
-        email: undefined,
-        sex: undefined,
-        status: "0",
-        remark: undefined,
-        postIds: [],
-        roleIds: []
-      };
-      this.resetForm("form");
-    },
+    private reset() {
+      this.form =  defaultUserInfo
+      this.myThis.resetForm(this.myThis.$ref.form as Form)
+    }
     /** 搜索按钮操作 */
-    handleQuery() {
-      this.queryParams.page = 1;
-      this.getList();
-    },
+   private handleQuery() {
+      this.queryParams.page = 1
+      this.getList()
+    }
     /** 重置按钮操作 */
     resetQuery() {
       this.dateRange = [];
-      this.resetForm("queryForm");
+      this.myThis.resetForm(this.$refs.queryForm as Form);
       this.handleQuery();
-    },
+    }
     // 多选框选中数据
-    handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.userId);
+    handleSelectionChange(selection: IUserInfo[]) {
+      this.ids = selection.map(item => item.id)
       this.single = selection.length != 1;
       this.multiple = !selection.length;
-    },
+    }
     /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.getTreeselect();
-      getUser().then(response => {
-        this.postOptions = response.data.posts;
-        this.roleOptions = response.data.roles;
-        this.open = true;
-        this.title = "添加用户";
-        this.form.password = this.initPassword;
-      });
-    },
+   private handleAdd() {
+      this.reset()
+      this.getTreeselect()
+      getUser(this.form.id).then(response => {
+        // this.postOptions = response.data.posts;
+        // this.roleOptions = response.data.roles;
+        this.open = true
+        this.title = "添加用户"
+        this.form.password = this.initPassword
+      })
+    }
     /** 修改按钮操作 */
-    handleUpdate(row) {
-      this.reset();
-      this.getTreeselect();
-      const userId = row.userId || this.ids;
+    private handleUpdate(row) {
+      this.reset()
+      this.getTreeselect()
+      const userId = row.userId || this.ids
       getUser(userId).then(response => {
-        this.form = response.data.user;
-        this.postOptions = response.data.posts;
-        this.roleOptions = response.data.roles;
-        this.form.postIds = response.data.postIds;
-        this.form.roleIds = response.data.roleIds;
-        this.open = true;
-        this.title = "修改用户";
-        this.form.password = "";
-      });
-    },
+        this.form = response.data.user
+        // this.postOptions = response.data.posts;
+        // this.roleOptions = response.data.roles;
+        // this.form.postIds = response.data.postIds;
+        // this.form.roleIds = response.data.roleIds;
+        this.open = true
+        this.title = "修改用户"
+        this.form.password = ""
+      })
+    }
     /** 重置密码按钮操作 */
-    handleResetPwd(row) {
+   private handleResetPwd(row) {
       this.$prompt('请输入"' + row.userName + '"的新密码', "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消"
@@ -675,6 +665,6 @@ export default {
     submitFileForm() {
       this.$refs.upload.submit();
     }
-  }
-};
+
+}
 </script>

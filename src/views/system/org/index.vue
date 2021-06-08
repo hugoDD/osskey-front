@@ -184,6 +184,7 @@ import { Form } from 'element-ui'
 import { handleTree, selectDictLabel } from '@/utils/global'
 import { PageParam } from '@/class/PageParam'
 import { regionDataPlus, CodeToText } from 'element-china-area-data'
+import { sysNormalDisable } from '@/utils/options'
 
 @Component({
   name: 'Organizations',
@@ -204,16 +205,7 @@ export default class extends Vue {
     // 是否显示弹出层
     private open= false
     // 状态数据字典
-    private statusOptions= [{
-      dictValue: '1',
-      dictLabel: '正常'
-    },
-    {
-      dictValue: '0',
-      dictLabel: '停用'
-    }
-    ]
-
+    private statusOptions= sysNormalDisable
     private regionOptions = regionDataPlus
     private selectedOptions = []
 
