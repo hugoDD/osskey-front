@@ -19,7 +19,7 @@ export const getDept = (deptId: string) =>
 
 
 // 查询部门下拉树结构
-export const treeselect = (params: ISearchFilter) =>
+export const getOrgTree = (params: ISearchFilter) =>
   request({
     url: '/auth/manage/orgs/tree',
     method: 'get',

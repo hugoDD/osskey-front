@@ -156,5 +156,11 @@ export const defaultUserInfo: IUserInfo = {
   ims: '',
   extraAttribute: '',
   online: 0,
-  status: ''
+  status: 1,
+  roleIds: [],
+  description:'',
+  createdBy:'',
+  createdDate:'',
+  modifiedBy:'',
+  modifiedDate:''
 }

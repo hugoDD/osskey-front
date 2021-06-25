@@ -63,7 +63,7 @@ export interface IProfile {
   confirmPassword: string
 }
 
-export interface IUserInfo {
+export interface IUserInfo extends AbstractBaseDomain{
   id: string
   username: string
   userType: string
@@ -78,24 +78,24 @@ export interface IUserInfo {
   honorificPrefix: string
   honorificSuffix: string
   formattedName: string
-  married: bigint
-  gender: bigint
+  married: number
+  gender: number
   birthDate: string
   picture: string
-  idType: bigint
+  idType: number
   idCardNo: string
   webSite: string
   startWorkDate: string
-  authnType: bigint
+  authnType: number
   email: string
   mobile: string
-  mobileVerified: bigint
+  mobileVerified: number
   lastLoginTime: string
   lastLoginIp: string
   lastLogoffTime: string
-  passwordSetType: bigint
+  passwordSetType: number
   password: string
-  loginCount: bigint
+  loginCount: number
   locale: string
   timeZone: string
   preferredLanguage: string
@@ -133,8 +133,9 @@ export interface IUserInfo {
   quitDate: string
   ims: string
   extraAttribute: string
-  online: bigint
-  status: string
+  online: number
+  status: number
+  roleIds: string[]
 }
 
 /*

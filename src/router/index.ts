@@ -220,6 +220,14 @@ export const asyncRoutes: RouteConfig[] = [
           title: 'organization',
           icon: 'list'
         }
+      },{
+        path: 'user',
+        component: () => import(/* webpackChunkName: "user-list" */ '@/views/system/user/index.vue'),
+        name: 'UserList',
+        meta: {
+          title: 'user',
+          icon: 'list'
+        }
       }
     ]
   },

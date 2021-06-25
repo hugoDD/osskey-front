@@ -30,6 +30,7 @@ export default {
     example: '综合实例',
     system: '系统管理',
     organization: '组织管理',
+    user: '用户管理',
     safelogs: '安全审计',
     loginLog: '登录日志',
     accessLog: '访问日志',
